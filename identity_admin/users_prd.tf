@@ -17,4 +17,8 @@ resource "aws_identitystore_user" "prd" {
     family_name = each.value.family_name
     given_name  = each.value.given_name
   }
+
+  emails {
+    value = each.value.email
+  }
 }
