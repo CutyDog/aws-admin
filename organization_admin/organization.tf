@@ -22,3 +22,10 @@ resource "aws_organizations_organizational_unit" "service" {
   name      = "service_accounts"
   parent_id = aws_organizations_organization.org.roots[0].id
 }
+
+module "account_group_admin" {
+  source = "../modules/account"
+
+  account_name = "group-admin"
+  parent_id    = aws_organizations_organizational_unit.admin.id
+}
