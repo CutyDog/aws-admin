@@ -1,15 +1,7 @@
-locals {
-  users = {
-    taishi = var.taishi,
-    yuta   = var.yuta,
-    ryota  = var.ryota,
-  }
-}
-
-resource "aws_identitystore_user" "prd" {
+resource "aws_identitystore_user" "main" {
   for_each = local.users
 
-  identity_store_id = var.identity_store_id
+  identity_store_id = tolist(data.aws_ssoadmin_instances.main.identity_store_ids)[0]
   display_name      = join(" ", [each.value.given_name, each.value.family_name])
   user_name         = each.value.email
 
